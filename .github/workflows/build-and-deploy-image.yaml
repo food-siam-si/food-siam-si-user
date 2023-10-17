@@ -32,6 +32,6 @@ jobs:
           context: .
           file: Dockerfile
           push: true
-          tags: ghcr.io/food-siam-si/food-siam-si-gateway:prod
+          tags: ghcr.io/food-siam-si/food-siam-si-user:prod
           cache-from: type=gha
           cache-to: type=gha,mode=max
