@@ -75,6 +75,8 @@ func LoginCheck(email string, password string) (string, error) {
 		return "", err
 	}
 
+	return "randomtoken", nil
+
 	token, err := token.GenerateToken(u.UserId)
 
 	if err != nil {

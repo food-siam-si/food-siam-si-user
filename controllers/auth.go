@@ -33,7 +33,7 @@ func Register(c *gin.Context) {
 	_, err := u.SaveUser()
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Problem Occured"})
 		return
 	}
 
@@ -62,7 +62,7 @@ func Login(c *gin.Context) {
 	token, err := models.LoginCheck(u.Username, u.Password)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "username or password is incorrect."})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "username or password is incorrect."})
 		return
 	}
 
@@ -74,14 +74,14 @@ func CurrentUser(c *gin.Context) {
 	user_id, err := token.ExtractTokenID(c)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 		return
 	}
 
 	u, err := models.GetUserByID(user_id)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 		return
 	}
 
